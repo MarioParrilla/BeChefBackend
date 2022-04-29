@@ -23,5 +23,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(userId).orElse(null);
     }
 
+    public UserDTO findUserByToken(String token) {
+        return userRepository.findUserByToken(token);
+    }
+
 
 }

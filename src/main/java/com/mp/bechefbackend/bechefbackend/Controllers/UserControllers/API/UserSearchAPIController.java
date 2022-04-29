@@ -20,13 +20,18 @@ public class UserSearchAPIController {
 
     @GetMapping( value = "/users",produces = "application/json")
     public ResponseEntity<List<UserDTO>> findUsers(){
-        return new ResponseEntity(userService.findAll(), HttpStatus.OK)
-         ;
+        return new ResponseEntity(userService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping( value = "/users/{userID}",produces = "application/json")
     public ResponseEntity<UserDTO> findUserById(@PathVariable Long userID){
         UserDTO user = userService.findUserById(userID);
         return user != null ? new ResponseEntity(user, HttpStatus.OK) : new ResponseEntity(new ApiErrorMessage("No se encontro un usuario con el ID: "+userID), HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping( value = "/users/getUser/{token}",produces = "application/json")
+    public ResponseEntity<UserDTO> getUserByToken(@PathVariable String token){
+        UserDTO username = userService.findUserByToken(token);
+        return username != null ? new ResponseEntity(username, HttpStatus.OK) : new ResponseEntity(new ApiErrorMessage("No se encontro un usuario con el token: "+token), HttpStatus.NOT_FOUND);
     }
 }

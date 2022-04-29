@@ -25,10 +25,13 @@ public class AuthServiceImpl implements AuthService {
 
         if (user == null){
             newUser.setUsername(createUsername(newUser.getEmail()));
+            newUser.setToken(createToken(newUser.getUsername(), newUser.getPassword(), "bechef"));
+            newUser.setDescription("No description");
             newUser.setAdmin(false);
             userRepository.save(newUser);
             return userRepository.findUserDTOByEmailAndByPassword(newUser.getEmail(), newUser.getPassword());
-        }else return null;
+        }
+        else return null;
     }
 
     private String createUsername(String email){
@@ -37,5 +40,9 @@ public class AuthServiceImpl implements AuthService {
         while( userRepository.findUserDTOByUsername(emailWithoutDomain) != null ) emailWithoutDomain += Utils.takeRandomChar();
 
         return emailWithoutDomain;
+    }
+
+    private String createToken(String username, String password, String serverToken){
+        return username+password+serverToken;
     }
 }

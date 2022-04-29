@@ -23,6 +23,12 @@ public class UserDTO {
     @Column(nullable = false)
     private Boolean isAdmin;
 
+    @Column(nullable = false, length = 100)
+    private String token;
+
+    @Column(nullable = false, length = 100)
+    private String description;
+
     public UserDTO() {
     }
 
@@ -31,11 +37,13 @@ public class UserDTO {
         this.password = password;
     }
 
-    public UserDTO(String username, String email, String password, Boolean isAdmin) {
+    public UserDTO(String username, String email, String password, Boolean isAdmin, String token, String description) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.token = token;
+        this.description = description;
     }
 
     public Long getId() {
@@ -74,17 +82,20 @@ public class UserDTO {
         isAdmin = admin;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserDTO userDTO = (UserDTO) o;
-        return id.equals(userDTO.id) && username.equals(userDTO.username) && email.equals(userDTO.email) && password.equals(userDTO.password) && isAdmin.equals(userDTO.isAdmin);
+    public String getToken() {
+        return token;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, email, password, isAdmin);
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -95,6 +106,8 @@ public class UserDTO {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", isAdmin=" + isAdmin +
+                ", token='" + token + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

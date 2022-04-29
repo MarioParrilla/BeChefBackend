@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @CrossOrigin()
 @RestController()
 @RequestMapping("/auth")
@@ -26,8 +24,7 @@ public class UserAuthAPIController {
 
     @PostMapping( value = "/register",produces = "application/json")
     public ResponseEntity<UserDTO> register(@RequestBody UserDTO user){
-        UserDTO registereddUser = authService.register(user);
-        return registereddUser != null ? new ResponseEntity(registereddUser, HttpStatus.CREATED) : new ResponseEntity(new ApiErrorMessage("El usuario no pudo ser registrado"), HttpStatus.FORBIDDEN);
+        UserDTO registeredUser = authService.register(user);
+        return registeredUser != null ? new ResponseEntity(registeredUser, HttpStatus.CREATED) : new ResponseEntity(new ApiErrorMessage("El usuario no pudo ser registrado"), HttpStatus.FORBIDDEN);
     }
-
 }
