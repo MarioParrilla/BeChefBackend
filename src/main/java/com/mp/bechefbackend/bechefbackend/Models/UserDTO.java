@@ -11,23 +11,26 @@ public class UserDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(length = 15, unique = true)
     private String username;
 
-    @Column(nullable = false, length = 50, unique = true)
+    @Column(length = 50, unique = true)
     private String email;
 
-    @Column(nullable = false, length = 20)
+    @Column(length = 20)
     private String password;
 
-    @Column(nullable = false)
+    @Column()
     private Boolean isAdmin;
 
     @Column(nullable = false, length = 100)
     private String token;
 
-    @Column(nullable = false, length = 100)
+    @Column(length = 100)
     private String description;
+
+    @Column(length = 100)
+    private String urlImg;
 
     public UserDTO() {
     }
@@ -37,13 +40,20 @@ public class UserDTO {
         this.password = password;
     }
 
-    public UserDTO(String username, String email, String password, Boolean isAdmin, String token, String description) {
+    public UserDTO(String username, String token, String description, String urlImg) {
+        this.username = username;
+        this.token = token;
+        this.description = description;
+    }
+
+    public UserDTO(String username, String email, String password, Boolean isAdmin, String token, String description, String urlImg) {
         this.username = username;
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
         this.token = token;
         this.description = description;
+        this.urlImg = urlImg;
     }
 
     public Long getId() {
@@ -98,6 +108,14 @@ public class UserDTO {
         this.description = description;
     }
 
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
+    }
+
     @Override
     public String toString() {
         return "UserDTO{" +
@@ -108,6 +126,7 @@ public class UserDTO {
                 ", isAdmin=" + isAdmin +
                 ", token='" + token + '\'' +
                 ", description='" + description + '\'' +
+                ", urlImg='" + urlImg + '\'' +
                 '}';
     }
 }
