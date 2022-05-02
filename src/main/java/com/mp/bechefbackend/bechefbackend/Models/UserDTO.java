@@ -29,7 +29,7 @@ public class UserDTO {
     @Column(length = 100)
     private String description;
 
-    @Column(length = 100)
+    @Column(length = 300)
     private String urlImg;
 
     public UserDTO() {

@@ -10,4 +10,8 @@ public interface UserService {
 
     public UserDTO findUserById(Long userId);
 
+    public UserDTO findUserByToken(String token);
+
+    public boolean changeUsernameAndDescByToken(UserDTO user);
+
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin()
 @RestController()
@@ -20,6 +21,19 @@ public class ChangeUserDataAPIController {
     public ResponseEntity<UserDTO> changeBasicData(@RequestBody UserDTO user){
         boolean changed = userService.changeUsernameAndDescByToken(user);
         return changed != false ? new ResponseEntity(user, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("El nombre de usuario ya esta escogido, prueba con otro"), HttpStatus.FORBIDDEN);
+    }
+
+    @PostMapping("/uploadImgProfile")
+    public ResponseEntity create(@RequestParam(name = "img") MultipartFile file) {
+        String result = null;
+
+        try {
+            result = userService.changeImgProfile(file);
+        } catch (Exception e) {
+            //  throw internal error;
+        }
+        return result != null ? new ResponseEntity(result, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("La imagen de perfil no se pudo subir"), HttpStatus.FORBIDDEN);
+
     }
 
 }
