@@ -18,22 +18,22 @@ public class ChangeUserDataAPIController {
     UserServiceImpl userService;
 
     @PutMapping( value = "/users",produces = "application/json")
-    public ResponseEntity<UserDTO> changeBasicData(@RequestBody UserDTO user){
-        boolean changed = userService.changeUsernameAndDescByToken(user);
+    public ResponseEntity<UserDTO> changeBasicData(@RequestParam(name = "img", required = false) MultipartFile file, @RequestParam(name = "token") String token, @RequestParam(name = "username") String username,
+                                                   @RequestParam(name = "description") String description){
+        String result = null;
+        boolean changed = false;
+        UserDTO user = new UserDTO();
+
+        if (file != null ) result = userService.changeImgProfile(file);
+
+        user.setToken(token);
+        user.setUsername(username);
+        user.setDescription(description);
+
+        if (result!=null) user.setUrlImg(result);
+        changed = userService.changeUsernameAndDescByToken(user);
+
+       if (file != null)  return changed != false && result!=null ? new ResponseEntity(user, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("El nombre de usuario ya esta escogido, prueba con otro"), HttpStatus.FORBIDDEN);
         return changed != false ? new ResponseEntity(user, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("El nombre de usuario ya esta escogido, prueba con otro"), HttpStatus.FORBIDDEN);
     }
-
-    @PostMapping("/uploadImgProfile")
-    public ResponseEntity create(@RequestParam(name = "img") MultipartFile file) {
-        String result = null;
-
-        try {
-            result = userService.changeImgProfile(file);
-        } catch (Exception e) {
-            //  throw internal error;
-        }
-        return result != null ? new ResponseEntity(result, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("La imagen de perfil no se pudo subir"), HttpStatus.FORBIDDEN);
-
-    }
-
 }
