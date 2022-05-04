@@ -12,8 +12,12 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
     UserDTO findUserDTOByEmailAndByPassword(String email, String password);
 
     UserDTO findUserDTOByUsername(String username);
+
     @Query("SELECT u FROM UserDTO u where u.token = ?1")
     UserDTO findUserByToken(String token);
+
+    @Query("SELECT u.id FROM UserDTO u where u.token = ?1")
+    Long findUserIdByToken(String token);
 
     @Query("Select case when count(u)> 0 then true else false end from UserDTO u where u.token = ?1")
     boolean existUserByToken(String token);

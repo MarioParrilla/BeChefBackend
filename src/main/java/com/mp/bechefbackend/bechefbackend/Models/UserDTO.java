@@ -1,11 +1,11 @@
 package com.mp.bechefbackend.bechefbackend.Models;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-public class UserDTO {
+public class UserDTO implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,30 +31,6 @@ public class UserDTO {
 
     @Column(length = 300)
     private String urlImg;
-
-    public UserDTO() {
-    }
-
-    public UserDTO(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
-    public UserDTO(String username, String token, String description, String urlImg) {
-        this.username = username;
-        this.token = token;
-        this.description = description;
-    }
-
-    public UserDTO(String username, String email, String password, Boolean isAdmin, String token, String description, String urlImg) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.isAdmin = isAdmin;
-        this.token = token;
-        this.description = description;
-        this.urlImg = urlImg;
-    }
 
     public Long getId() {
         return id;
