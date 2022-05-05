@@ -34,6 +34,6 @@ public class ChangeUserDataAPIController {
         changed = userService.changeUsernameAndDescByToken(user);
 
        if (file != null)  return changed != false && result!=null ? new ResponseEntity(user, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("El nombre de usuario ya esta escogido, prueba con otro"), HttpStatus.FORBIDDEN);
-        return changed != false ? new ResponseEntity(user, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("El nombre de usuario ya esta escogido, prueba con otro"), HttpStatus.FORBIDDEN);
+       return changed != false ? new ResponseEntity(user, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("El nombre de usuario ya esta escogido, prueba con otro"), HttpStatus.FORBIDDEN);
     }
 }

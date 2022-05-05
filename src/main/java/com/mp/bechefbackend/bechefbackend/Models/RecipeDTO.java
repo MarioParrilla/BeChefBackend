@@ -7,8 +7,6 @@ import java.io.Serializable;
 @Table(name = "recipes")
 public class RecipeDTO implements Serializable {
 
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -65,6 +63,14 @@ public class RecipeDTO implements Serializable {
 
     public void setSteps(String steps) {
         this.steps = steps;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
