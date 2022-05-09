@@ -25,6 +25,9 @@ public class RecipeDTO implements Serializable {
     @Column(length = 1000)
     private String steps;
 
+    @Column(length = 300)
+    private String urlImg;
+
     public Long getId_autor() {
         return id_autor;
     }
@@ -71,6 +74,14 @@ public class RecipeDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
     }
 
     @Override
