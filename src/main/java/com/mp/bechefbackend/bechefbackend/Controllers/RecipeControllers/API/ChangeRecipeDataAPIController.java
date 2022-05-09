@@ -22,7 +22,7 @@ public class ChangeRecipeDataAPIController {
     RecipeServiceImpl recipeService;
 
     @PutMapping( value = "/recipes",produces = "application/json")
-    public ResponseEntity<RecipeDTO> changeBasicData(@RequestParam(name = "img", required = false) MultipartFile file, @RequestParam(name = "token") String token, @RequestParam(name = "id") String id, @RequestParam(name = "name") String name,
+    public ResponseEntity<RecipeDTO> changeBasicData(@RequestParam(name = "img", required = false) MultipartFile file, @RequestParam(name = "token") String token, @RequestParam(name = "id", required = false) String id, @RequestParam(name = "name") String name,
                                                    @RequestParam(name = "description") String description, @RequestParam(name = "steps") String steps, @RequestParam(name = "category") String category){
         String result = null;
         boolean changed = false;
@@ -31,7 +31,7 @@ public class ChangeRecipeDataAPIController {
         Long idAutor = userService.findUserByToken(token).getId();
 
         if (file != null ) result = recipeService.changeImgProfile(file);
-        recipe.setId(Long.parseLong(id));
+        if(id != null)recipe.setId(Long.parseLong(id));
         recipe.setId_autor(idAutor);
         recipe.setName(name);
         recipe.setDescription(description);
