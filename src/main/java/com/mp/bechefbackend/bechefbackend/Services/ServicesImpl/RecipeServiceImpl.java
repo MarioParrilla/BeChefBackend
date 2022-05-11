@@ -40,6 +40,13 @@ public class RecipeServiceImpl implements RecipeService {
         if(userId != null) recipes = recipeRepository.findRecipesByAutorId(userId);
 
         return recipes;
+
+    }   public List<RecipeDTO> findRecipesByCategory(String category) {
+        List<RecipeDTO> recipes = new ArrayList<>();
+
+        recipes = recipeRepository.findRecipesByCategory(category);
+
+        return recipes;
     }
 
     public boolean changeInfoRecipe(RecipeDTO recipe){

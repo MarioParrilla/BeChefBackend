@@ -13,4 +13,7 @@ public interface RecipeRepository extends JpaRepository<RecipeDTO, Long> {
     @Query("SELECT r FROM RecipeDTO r where r.id_autor = ?1")
     List<RecipeDTO> findRecipesByAutorId(Long id);
 
+    @Query("SELECT r FROM RecipeDTO r where r.category = ?1")
+    List<RecipeDTO> findRecipesByCategory(String category);
+
 }

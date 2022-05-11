@@ -23,6 +23,12 @@ public class RecipeSearchAPIController {
         return new ResponseEntity(recipeService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping( value = "/recipes/category/{category}",produces = "application/json")
+    public ResponseEntity<List<RecipeDTO>> findRecipesByCategory(@PathVariable String category){
+        List<RecipeDTO> recipes = recipeService.findRecipesByCategory(category);
+        return recipes != null ? new ResponseEntity(recipes, HttpStatus.OK) : new ResponseEntity(new ApiErrorMessage("No se encontro recetas de la categoria: "+category), HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping( value = "/recipes/{token}",produces = "application/json")
     public ResponseEntity<List<RecipeDTO>> findRecipesByToken(@PathVariable String token){
         List<RecipeDTO> recipes = recipeService.findRecipesByToken(token);
