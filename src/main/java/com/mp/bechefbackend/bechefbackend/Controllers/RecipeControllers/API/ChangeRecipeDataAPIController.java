@@ -43,4 +43,14 @@ public class ChangeRecipeDataAPIController {
         if (file != null)  return changed != false && result != null ? new ResponseEntity(recipe, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("Error al modificar la receta"), HttpStatus.FORBIDDEN);
         return changed != false ? new ResponseEntity(recipe, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("Error al modificar la receta"), HttpStatus.FORBIDDEN);
     }
+
+    @DeleteMapping( value = "/recipes/{recipeID}",produces = "application/json")
+     public ResponseEntity<Boolean> removeRecipe(@PathVariable Long recipeID){
+        boolean changed = false;
+
+        changed = recipeService.remove(recipeID);
+
+        return changed != false ? new ResponseEntity(changed, HttpStatus.FOUND) : new ResponseEntity(new ApiErrorMessage("Error al eliminar la receta"), HttpStatus.FORBIDDEN);
+    }
+
 }

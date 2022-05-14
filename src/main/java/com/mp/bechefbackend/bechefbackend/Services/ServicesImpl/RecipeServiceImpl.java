@@ -32,6 +32,19 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeRepository.findAll();
     }
 
+    public boolean remove(Long recipeID){
+        boolean removeOK = false;
+
+        try{
+            recipeRepository.deleteById(recipeID);
+            removeOK = true;
+        }catch (Exception e){
+            removeOK = false;
+        }
+
+        return removeOK;
+    }
+
     @Override
     public List<RecipeDTO> findRecipesByToken(String token) {
         List<RecipeDTO> recipes = new ArrayList<>();
