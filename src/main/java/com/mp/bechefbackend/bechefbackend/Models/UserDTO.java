@@ -14,7 +14,7 @@ public class UserDTO implements Serializable {
     @Column(length = 15, unique = true)
     private String username;
 
-    @Column(length = 50, unique = true)
+    @Column(length = 100, unique = true)
     private String email;
 
     @Column(length = 20)

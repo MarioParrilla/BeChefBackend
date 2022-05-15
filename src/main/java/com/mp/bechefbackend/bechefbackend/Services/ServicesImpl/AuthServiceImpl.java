@@ -5,6 +5,7 @@ import com.mp.bechefbackend.bechefbackend.Repositories.UserRepository;
 import com.mp.bechefbackend.bechefbackend.Services.AuthService;
 import com.mp.bechefbackend.bechefbackend.Utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,21 +16,25 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDTO checkData(UserDTO userToCheck) {
-        return userRepository.findUserDTOByEmailAndByPassword(userToCheck.getEmail(), userToCheck.getPassword());
+        UserDTO user = userRepository.findUserDTOByEmail(userToCheck.getEmail());
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+        if (bCryptPasswordEncoder.matches(user.getPassword(), bCryptPasswordEncoder.encode(user.getPassword()))) return user;
+        else return null;
     }
 
     @Override
     public UserDTO register(UserDTO newUser) {
         if ( newUser.getPassword() == null || newUser.getPassword().isEmpty()) return null;
-        UserDTO user = userRepository.findUserDTOByEmailAndByPassword(newUser.getEmail(), newUser.getPassword());
+        String cPass = new BCryptPasswordEncoder(4).encode(newUser.getPassword());
+        UserDTO user = userRepository.findUserDTOByEmail(newUser.getEmail());
 
         if (user == null){
             newUser.setUsername(createUsername(newUser.getEmail()));
-            newUser.setToken(createToken(newUser.getUsername(), newUser.getPassword(), "bechef"));
+            newUser.setToken(createToken(newUser.getUsername(), cPass, "bechef"));
             newUser.setDescription("No description");
             newUser.setAdmin(false);
             userRepository.save(newUser);
-            return userRepository.findUserDTOByEmailAndByPassword(newUser.getEmail(), newUser.getPassword());
+            return userRepository.findUserDTOByEmail(newUser.getEmail());
         }
         else return null;
     }
