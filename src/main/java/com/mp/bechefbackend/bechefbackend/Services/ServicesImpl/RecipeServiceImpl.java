@@ -54,10 +54,18 @@ public class RecipeServiceImpl implements RecipeService {
 
         return recipes;
 
-    }   public List<RecipeDTO> findRecipesByCategory(String category) {
+    }
+    public List<RecipeDTO> findRecipesByCategory(String category) {
         List<RecipeDTO> recipes = new ArrayList<>();
 
         recipes = recipeRepository.findRecipesByCategory(category);
+
+        return recipes;
+    }
+    public List<RecipeDTO> findRecipesByCategoryPaged(String category, Long lastID) {
+        List<RecipeDTO> recipes = new ArrayList<>();
+
+        recipes = recipeRepository.findRecipesByCategoryPaged(category, lastID);
 
         return recipes;
     }
