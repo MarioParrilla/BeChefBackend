@@ -53,8 +53,16 @@ public class RecipeServiceImpl implements RecipeService {
         if(userId != null) recipes = recipeRepository.findRecipesByAutorId(userId);
 
         return recipes;
-
     }
+
+    public List<RecipeDTO> findRecipesByUserID(Long userID) {
+        List<RecipeDTO> recipes = new ArrayList<>();
+
+        recipes = recipeRepository.findRecipesByAutorId(userID);
+
+        return recipes;
+    }
+
     public List<RecipeDTO> findRecipesByCategory(String category) {
         List<RecipeDTO> recipes = new ArrayList<>();
 

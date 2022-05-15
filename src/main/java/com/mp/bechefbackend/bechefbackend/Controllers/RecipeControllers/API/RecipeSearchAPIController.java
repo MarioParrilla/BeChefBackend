@@ -40,4 +40,10 @@ public class RecipeSearchAPIController {
         List<RecipeDTO> recipes = recipeService.findRecipesByToken(token);
         return recipes != null ? new ResponseEntity(recipes, HttpStatus.OK) : new ResponseEntity(new ApiErrorMessage("No se encontro recetas con el token: "+token), HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping( value = "/recipes/user/{userID}",produces = "application/json")
+    public ResponseEntity<List<RecipeDTO>> findRecipesByUserID(@PathVariable Long userID){
+        List<RecipeDTO> recipes = recipeService.findRecipesByUserID(userID);
+        return recipes != null ? new ResponseEntity(recipes, HttpStatus.OK) : new ResponseEntity(new ApiErrorMessage("No se encontro recetas con el id: "+userID), HttpStatus.NOT_FOUND);
+    }
 }
