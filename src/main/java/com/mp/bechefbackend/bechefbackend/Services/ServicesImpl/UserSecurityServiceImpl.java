@@ -22,9 +22,10 @@ public class UserSecurityServiceImpl implements UserSecurityService, UserDetails
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         String role = "USER";
-        UserDTO user = userRepository.findByUsername(username);
+        UserDTO user = userRepository.findUserDTOByEmail(email);
+        System.out.println(email);
         Set<GrantedAuthority> authorities = new HashSet<>();
 
         if (user.getAdmin()) role = "ADMIN";
@@ -32,7 +33,7 @@ public class UserSecurityServiceImpl implements UserSecurityService, UserDetails
 
         authorities.add(new SimpleGrantedAuthority(role));
 
-        return new User(username, user.getPassword(), authorities);
+        return new User(email, user.getPassword(), authorities);
     }
 
 }

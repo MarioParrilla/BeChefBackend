@@ -35,8 +35,8 @@ public class RecipeSearchAPIController {
         return recipes != null ? new ResponseEntity(recipes, HttpStatus.OK) : new ResponseEntity(new ApiErrorMessage("No se encontro recetas de la categoria: "+category), HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping( value = "/recipes/{token}",produces = "application/json")
-    public ResponseEntity<List<RecipeDTO>> findRecipesByToken(@PathVariable String token){
+    @PostMapping( value = "/recipes/",produces = "application/json")
+    public ResponseEntity<List<RecipeDTO>> findRecipesByToken(@RequestParam String token){
         List<RecipeDTO> recipes = recipeService.findRecipesByToken(token);
         return recipes != null ? new ResponseEntity(recipes, HttpStatus.OK) : new ResponseEntity(new ApiErrorMessage("No se encontro recetas con el token: "+token), HttpStatus.NOT_FOUND);
     }

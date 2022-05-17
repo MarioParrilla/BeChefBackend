@@ -18,14 +18,17 @@ import java.util.UUID;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
+    private final String URLIMG = "https://firebasestorage.googleapis.com/v0/b/bechefapp-6b2c7.appspot.com/o/profilesImg%2F";
+    private final String SUFIXURL = "?alt=media&token=4db09e73-1da8-4bd7-bd02-746e4c3a214e";
 
     @Autowired
     private RecipeRepository recipeRepository;
     @Autowired
     private UserRepository userRepository;
 
-    private final String URLIMG = "https://firebasestorage.googleapis.com/v0/b/bechefapp-6b2c7.appspot.com/o/profilesImg%2F";
-    private final String SUFIXURL = "?alt=media&token=4db09e73-1da8-4bd7-bd02-746e4c3a214e";
+    public long countRecipes(){
+        return recipeRepository.count();
+    }
 
     @Override
     public List<RecipeDTO> findAll() {
@@ -48,7 +51,6 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public List<RecipeDTO> findRecipesByToken(String token) {
         List<RecipeDTO> recipes = new ArrayList<>();
-
         Long userId = userRepository.findUserIdByToken(token);
         if(userId != null) recipes = recipeRepository.findRecipesByAutorId(userId);
 

@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 //.antMatchers("/login").permitAll()
                 .antMatchers("/**").hasAuthority("ADMIN")//.permitAll()
                 .and().formLogin().loginPage("/login")
-                .defaultSuccessUrl("/menu", true).permitAll()
+                .defaultSuccessUrl("/", true).permitAll()
                 .and().logout().logoutUrl("/cerrarSesion").permitAll();
         http.exceptionHandling().accessDeniedPage("/login?noAcceso");
     }

@@ -32,7 +32,9 @@ public class AuthServiceImpl implements AuthService {
             newUser.setUsername(createUsername(newUser.getEmail()));
             newUser.setToken(createToken(newUser.getUsername(), cPass, "bechef"));
             newUser.setDescription("No description");
+            newUser.setUrlImg("");
             newUser.setAdmin(false);
+            newUser.setPassword(cPass);
             userRepository.save(newUser);
             return userRepository.findUserDTOByEmail(newUser.getEmail());
         }

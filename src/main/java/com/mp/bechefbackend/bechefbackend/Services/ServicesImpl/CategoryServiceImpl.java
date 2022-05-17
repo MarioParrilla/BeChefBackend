@@ -18,4 +18,8 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDTO> findAll() {
         return categoryRepository.findAll();
     }
+
+    public long countCategories(){
+        return categoryRepository.count();
+    }
 }
