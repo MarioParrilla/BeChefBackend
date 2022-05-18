@@ -25,7 +25,7 @@ public class CMSIndexController {
     public String index(Model model) {
         model.addAttribute("usersAmount", userService.countUsers());
         model.addAttribute("recipesAmount", recipeService.countRecipes());
-        model.addAttribute("CategoriesAmount", categoryService.countCategories());
+        model.addAttribute("categoriesAmount", categoryService.countCategories());
 
         return "index";
     }
@@ -38,6 +38,11 @@ public class CMSIndexController {
     @PostMapping("/login")
     public String resolveLogin(){
         return "redirect:/";
+    }
+
+    @GetMapping("/logut")
+    public String logut(){
+        return "redirect:/login";
     }
 
 }
