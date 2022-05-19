@@ -40,8 +40,8 @@ public class CMSIndexController {
         return "redirect:/";
     }
 
-    @GetMapping("/logut")
-    public String logut(){
+    @GetMapping("/logout")
+    public String logout(){
         return "redirect:/login";
     }
 

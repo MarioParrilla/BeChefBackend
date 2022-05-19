@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin()
@@ -19,8 +20,18 @@ public class RecipeSearchAPIController {
     private RecipeServiceImpl recipeService;
 
     @GetMapping( value = "/recipes",produces = "application/json")
-    public ResponseEntity<List<RecipeDTO>> findUsers(){
+    public ResponseEntity<List<RecipeDTO>> findRecipes(){
         return new ResponseEntity(recipeService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping( value = "/recipes/q/",produces = "application/json")
+    public ResponseEntity<List<RecipeDTO>> findRecipesByQueryNukk(){
+        return new ResponseEntity(new ArrayList<RecipeDTO>() , HttpStatus.OK);
+    }
+
+    @GetMapping( value = "/recipes/q/{query}",produces = "application/json")
+    public ResponseEntity<List<RecipeDTO>> findRecipesByQuery(@PathVariable(required = false) String query){
+        return new ResponseEntity(recipeService.findByQuery(query), HttpStatus.OK);
     }
 
     @GetMapping( value = "/recipes/category/{category}",produces = "application/json")

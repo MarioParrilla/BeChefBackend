@@ -19,5 +19,8 @@ public interface RecipeRepository extends JpaRepository<RecipeDTO, Long> {
     @Query(nativeQuery = true, value = "SELECT * FROM recipes r where r.category = ?1 and r.id > ?2 LIMIT 10")
     List<RecipeDTO> findRecipesByCategoryPaged(String category, Long lastID);
 
+    @Query("SELECT r FROM RecipeDTO r where r.name like ?1%")
+    List<RecipeDTO> findByQuery(String query);
+
 
 }

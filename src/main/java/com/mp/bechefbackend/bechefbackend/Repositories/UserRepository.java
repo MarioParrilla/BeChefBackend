@@ -1,9 +1,12 @@
 package com.mp.bechefbackend.bechefbackend.Repositories;
 
+import com.mp.bechefbackend.bechefbackend.Models.RecipeDTO;
 import com.mp.bechefbackend.bechefbackend.Models.UserDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Transactional
 public interface UserRepository extends JpaRepository<UserDTO, Long> {
@@ -15,6 +18,9 @@ public interface UserRepository extends JpaRepository<UserDTO, Long> {
 
     @Query("SELECT u FROM UserDTO u where u.token = ?1")
     UserDTO findUserByToken(String token);
+
+    @Query("SELECT u FROM UserDTO u where u.username like ?1%")
+    List<UserDTO> findByQuery(String query);
 
     @Query("SELECT u.id FROM UserDTO u where u.token = ?1")
     Long findUserIdByToken(String token);

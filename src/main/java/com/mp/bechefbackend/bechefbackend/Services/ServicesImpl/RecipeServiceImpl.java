@@ -35,6 +35,10 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeRepository.findAll();
     }
 
+    public List<RecipeDTO> findByQuery(String query) {
+        return recipeRepository.findByQuery(query);
+    }
+
     public boolean remove(Long recipeID){
         boolean removeOK = false;
 

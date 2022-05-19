@@ -2,6 +2,7 @@ package com.mp.bechefbackend.bechefbackend.Services.ServicesImpl;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.*;
+import com.mp.bechefbackend.bechefbackend.Models.RecipeDTO;
 import com.mp.bechefbackend.bechefbackend.Models.UserDTO;
 import com.mp.bechefbackend.bechefbackend.Repositories.UserRepository;
 import com.mp.bechefbackend.bechefbackend.Services.UserService;
@@ -25,6 +26,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> findAll() {
         return userRepository.findAll();
+    }
+
+    public List<UserDTO> findByQuery(String query) {
+        return userRepository.findByQuery(query);
     }
 
     public UserDTO findUserById(Long userId) {
