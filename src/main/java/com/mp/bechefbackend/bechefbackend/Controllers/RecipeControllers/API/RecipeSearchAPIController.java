@@ -1,6 +1,7 @@
 package com.mp.bechefbackend.bechefbackend.Controllers.RecipeControllers.API;
 
 import com.mp.bechefbackend.bechefbackend.Exceptions.ApiErrorMessage;
+import com.mp.bechefbackend.bechefbackend.Models.RateDTO;
 import com.mp.bechefbackend.bechefbackend.Models.RecipeDTO;
 import com.mp.bechefbackend.bechefbackend.Services.ServicesImpl.RecipeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,16 @@ public class RecipeSearchAPIController {
     @GetMapping( value = "/recipes/q/{query}",produces = "application/json")
     public ResponseEntity<List<RecipeDTO>> findRecipesByQuery(@PathVariable(required = false) String query){
         return new ResponseEntity(recipeService.findByQuery(query), HttpStatus.OK);
+    }
+
+    @GetMapping( value = "/recipes/rate/{rate}",produces = "application/json")
+    public ResponseEntity<Double> findRateFromRecipe(@PathVariable() Long rate){
+        return new ResponseEntity(recipeService.findRate(rate), HttpStatus.OK);
+    }
+
+    @PostMapping( value = "/recipes/rate",produces = "application/json")
+    public ResponseEntity<Boolean> setRateToRecipe(@RequestBody() RateDTO rate){
+        return new ResponseEntity(recipeService.setRate(rate), HttpStatus.OK);
     }
 
     @GetMapping( value = "/recipes/category/{category}",produces = "application/json")

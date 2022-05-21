@@ -2,7 +2,9 @@ package com.mp.bechefbackend.bechefbackend.Services.ServicesImpl;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.*;
+import com.mp.bechefbackend.bechefbackend.Models.RateDTO;
 import com.mp.bechefbackend.bechefbackend.Models.RecipeDTO;
+import com.mp.bechefbackend.bechefbackend.Repositories.RateRepository;
 import com.mp.bechefbackend.bechefbackend.Repositories.RecipeRepository;
 import com.mp.bechefbackend.bechefbackend.Repositories.UserRepository;
 import com.mp.bechefbackend.bechefbackend.Services.RecipeService;
@@ -26,6 +28,9 @@ public class RecipeServiceImpl implements RecipeService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    RateRepository rateRepository;
+
     public long countRecipes(){
         return recipeRepository.count();
     }
@@ -37,6 +42,25 @@ public class RecipeServiceImpl implements RecipeService {
 
     public List<RecipeDTO> findByQuery(String query) {
         return recipeRepository.findByQuery(query);
+    }
+
+    public Double findRate(Long recipeId) {
+        double recipeRate = 0.0;
+        List<RateDTO> rates = rateRepository.findRate(recipeId);
+
+        for ( RateDTO rate : rates) recipeRate += rate.getRate();
+        recipeRate = recipeRate / rates.size();
+
+        return recipeRate;
+    }
+
+    public boolean setRate(RateDTO rate) {
+        boolean changed = false;
+        
+        rateRepository.save(rate);
+        changed = true;
+
+        return changed;
     }
 
     public boolean remove(Long recipeID){
