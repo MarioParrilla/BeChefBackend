@@ -2,6 +2,7 @@ package com.mp.bechefbackend.bechefbackend.Controllers.RecipeControllers.API;
 
 import com.mp.bechefbackend.bechefbackend.Exceptions.ApiErrorMessage;
 import com.mp.bechefbackend.bechefbackend.Models.RateDTO;
+import com.mp.bechefbackend.bechefbackend.Models.RateInfo;
 import com.mp.bechefbackend.bechefbackend.Models.RecipeDTO;
 import com.mp.bechefbackend.bechefbackend.Services.ServicesImpl.RecipeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class RecipeSearchAPIController {
     }
 
     @PostMapping( value = "/recipes/rate",produces = "application/json")
-    public ResponseEntity<Boolean> setRateToRecipe(@RequestBody() RateDTO rate){
+    public ResponseEntity<Boolean> setRateToRecipe(@RequestBody() RateInfo rate){
         return new ResponseEntity(recipeService.setRate(rate), HttpStatus.OK);
     }
 

@@ -3,6 +3,7 @@ package com.mp.bechefbackend.bechefbackend.Services.ServicesImpl;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.*;
 import com.mp.bechefbackend.bechefbackend.Models.RateDTO;
+import com.mp.bechefbackend.bechefbackend.Models.RateInfo;
 import com.mp.bechefbackend.bechefbackend.Models.RecipeDTO;
 import com.mp.bechefbackend.bechefbackend.Repositories.RateRepository;
 import com.mp.bechefbackend.bechefbackend.Repositories.RecipeRepository;
@@ -49,15 +50,20 @@ public class RecipeServiceImpl implements RecipeService {
         List<RateDTO> rates = rateRepository.findRate(recipeId);
 
         for ( RateDTO rate : rates) recipeRate += rate.getRate();
-        recipeRate = recipeRate / rates.size();
 
-        return recipeRate;
+        return rates.size() > 1 ? recipeRate / rates.size() : recipeRate;
     }
 
-    public boolean setRate(RateDTO rate) {
+    public boolean setRate(RateInfo rate) {
         boolean changed = false;
-        
-        rateRepository.save(rate);
+
+        RateDTO r = new RateDTO();
+
+        r.setRecipeId(rate.getRecipeId());
+        r.setRate(rate.getRate());
+        r.setUserId(userRepository.findUserIdByToken(rate.getUserToken()));
+
+        rateRepository.save(r);
         changed = true;
 
         return changed;
