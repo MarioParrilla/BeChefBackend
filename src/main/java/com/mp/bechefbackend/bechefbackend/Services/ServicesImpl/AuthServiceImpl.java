@@ -17,9 +17,11 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserDTO checkData(UserDTO userToCheck) {
         UserDTO user = userRepository.findUserDTOByEmail(userToCheck.getEmail());
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
-        if (bCryptPasswordEncoder.matches(user.getPassword(), bCryptPasswordEncoder.encode(user.getPassword()))) return user;
-        else return null;
+        if(user!=null){
+            BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
+            if (bCryptPasswordEncoder.matches(user.getPassword(), bCryptPasswordEncoder.encode(user.getPassword()))) return user;
+            else return null;
+        }else return null;
     }
 
     @Override
