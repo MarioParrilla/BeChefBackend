@@ -22,4 +22,37 @@ public class CategoryServiceImpl implements CategoryService {
     public long countCategories(){
         return categoryRepository.count();
     }
+
+    public void save(String newCategory) throws Exception {
+        CategoryDTO c = new CategoryDTO();
+        c.setName(newCategory);
+
+        if (categoryRepository.findByName(c.getName()) == null){
+            categoryRepository.save(c);
+        }else throw new Exception();
+    }
+
+    public void edit(String newCategory, String oldCategory) throws Exception {
+        CategoryDTO c = new CategoryDTO();
+        c.setName(newCategory);
+
+        CategoryDTO c2 = new CategoryDTO();
+        c2.setName(oldCategory);
+
+        if (categoryRepository.findByName(c2.getName()) != null){
+            delete(c2.getName());
+            System.out.println(c);
+            categoryRepository.save(c);
+        }else throw new Exception();
+    }
+
+    public void delete(String categoryToDelete) throws Exception {
+        CategoryDTO c = new CategoryDTO();
+        c.setName(categoryToDelete);
+        System.out.println(categoryRepository.findByName(c.getName()));
+        if (categoryRepository.findByName(c.getName()) != null){
+            categoryRepository.delete(c);
+        }else throw new Exception();
+    }
+
 }

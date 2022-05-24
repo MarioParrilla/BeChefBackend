@@ -61,8 +61,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Categorias</h1>
-            <form method="get" action=/agregarUsuario>
-              <input type="submit" name="botonAgregar" value="Agregar Categoria">
+            <form method="POST" id="addCategory" action="/categories">
+              <input type="hidden" id="valueNewCategory" name="newCategory">
+              <input type="hidden" name="oldCategory" value="">
+              <input type="hidden" name="method" value="POST">
+              <input type="button" name="botonAgregar" value="Agregar Categoria" onclick="addCategory()">
             </form>
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -87,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <div>
           <div>
-            <table id="tablaUsuarios" class="table table-bordered table-hover">
+            <table id="tableCategories" class="table table-bordered table-hover">
               <thead>
               <tr>
                 <th>Nombre</th>
@@ -99,15 +102,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <tr th:each="category : ${categories}">
                 <td th:text="${category.getName()}"></td>
                 <td>
-                  <form method="get" th:action="@{/editarRecipe?categoryid=${category.getName()}}">
-                    <input type="hidden" name="categoryid" th:value="${category.getName()}">
-                    <input type="submit" name="botonModificar" value="Editar">
+                  <form method="POST" th:id="${'editCategory'+category.getName()}" id="editCategory" action="/categories">
+                    <input type="hidden" th:id="${'veditCategory'+category.getName()}" name="newCategory">
+                    <input type="hidden" name="oldCategory" th:value="${category.getName()}">
+                    <input type="hidden" name="method" value="PUT">
+                    <input type="button" name="botonModificar" th:data-d="${category.name}" value="Editar" th:onclick="editCategory('editCategory'+this.getAttribute('data-d'))">
                   </form>
                 </td>
                 <td>
-                  <form method="post" action=/eliminarUsuario>
-                    <input type="hidden" name="userid" th:value="${category.getName()}">
-                    <input type="submit" name="botonEliminar" value="Eliminar">
+                  <form id="del" method="POST" action=/categories>
+                    <input type="hidden" name="oldCategory" value="">
+                    <input type="hidden" name="newCategory" th:value="${category.getName()}">
+                    <input type="hidden" name="method" value="DELETE">
+                    <input type="button" name="botonEliminar" value="Eliminar" onclick="verifyDelete()">
                   </form>
                 </td>
               </tr>
@@ -159,8 +166,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 <script>
+
+  const verifyDelete = () => {
+    const form = document.getElementById('del');
+    const result = confirm('¿Desea eliminar la categoría?');
+    result ? form.submit() : null;
+  }
+
+  const addCategory = () => {
+    const form = document.getElementById('addCategory');
+    const valueNewCategory = document.getElementById('valueNewCategory');
+    const result = prompt('Introduce el nombre de la nueva categoria');
+
+    if(result !== null && !result.isEmpty){
+      valueNewCategory.value = result;
+      form.submit();
+    } else alert('Introduce una categoria valida')
+
+  }
+
+  const editCategory = (f) => {
+    const form = document.getElementById(f);
+    const valueEditCategory = document.getElementById('v'+f);
+    const result = prompt('Introduce el nuevo nombre de la categoria');
+
+    if(result !== null && !result.isEmpty){
+      valueEditCategory.value = result;
+      form.submit();
+    } else alert('Introduce una categoria valida')
+
+  }
+
   $(function () {
-    $('#tablaUsuarios').DataTable({
+    $('#tableCategories').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,

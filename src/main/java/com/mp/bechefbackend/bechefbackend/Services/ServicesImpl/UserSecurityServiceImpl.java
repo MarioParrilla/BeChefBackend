@@ -25,7 +25,6 @@ public class UserSecurityServiceImpl implements UserSecurityService, UserDetails
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         String role = "USER";
         UserDTO user = userRepository.findUserDTOByEmail(email);
-        System.out.println(email);
         Set<GrantedAuthority> authorities = new HashSet<>();
 
         if (user.getAdmin()) role = "ADMIN";

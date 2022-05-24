@@ -61,9 +61,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <div class="row mb-2">
                     <div class="col-sm-6">
                         <h1 class="m-0">Recetas</h1>
-                        <form method="get" action=/agregarUsuario>
-                            <input type="submit" name="botonAgregar" value="Agregar Receta">
-                        </form>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                     </div><!-- /.col -->
@@ -97,7 +94,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <th>Pasos</th>
                                 <th>Categoria</th>
                                 <th>urlImg</th>
-                                <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
                             </thead>
@@ -110,12 +106,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <td th:text="${recipe.getSteps()}"></td>
                                 <td th:text="${recipe.getCategory()}"></td>
                                 <td><img th:src="${recipe.getUrlImg()}"></td>
-                                <td>
-                                    <form method="get" th:action="@{/editarRecipe?recipeid=${recipe.getId()}}">
-                                        <input type="hidden" name="recipeid" th:value="${recipe.getId()}">
-                                        <input type="submit" name="botonModificar" value="Editar">
-                                    </form>
-                                </td>
                                 <td>
                                     <form method="post" action=/eliminarUsuario>
                                         <input type="hidden" name="userid" th:value="${recipe.getId()}">
@@ -133,7 +123,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <th>Pasos</th>
                                 <th>Categoria</th>
                                 <th>urlImg</th>
-                                <th>Editar</th>
                                 <th>Eliminar</th>
                             </tr>
                             </tfoot>
