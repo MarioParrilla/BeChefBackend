@@ -40,6 +40,31 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByToken(token);
     }
 
+    public boolean save(UserDTO newUser){
+        boolean result = false;
+
+        try{
+            userRepository.save(newUser);
+            result = true;
+        }catch (Exception e){
+            result = false;
+        }
+
+        return result;
+    }
+    public boolean remove(Long userID){
+        boolean removeOK = false;
+
+        try{
+            userRepository.deleteById(userID);
+            removeOK = true;
+        }catch (Exception e){
+            removeOK = false;
+        }
+
+        return removeOK;
+    }
+
     public long countUsers(){
         return userRepository.count();
     }

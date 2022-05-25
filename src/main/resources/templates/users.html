@@ -62,8 +62,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Usuarios</h1>
-            <form method="get" action=/agregarUsuario>
-              <input type="submit" name="botonAgregar" value="Agregar Usuario">
+            <form method="get" action=/users/addUser>
+              <input type="submit"  value="Agregar Usuario">
             </form>
           </div><!-- /.col -->
           <div class="col-sm-6">
@@ -110,14 +110,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <td th:text="${user.getAdmin()}"></td>
                 <td><img th:src="${user.getUrlImg()}"></td>
                 <td>
-                  <form method="get" th:action="@{/editarUsuario?userid=${user.getId()}}">
-                    <input type="hidden" name="userid" th:value="${user.getId()}">
-                    <input type="submit" name="botonModificar" value="Editar">
+                  <form method="GET" th:action="'/users/editUser/'+${user.getId()}">
+                    <input type="submit" value="Editar">
                   </form>
                 </td>
                 <td>
-                  <form method="post" action=/eliminarUsuario>
-                    <input type="hidden" name="userid" th:value="${user.getId()}">
+                  <form method="post" action=/users/delUser>
+                    <input type="hidden" name="id" th:value="${user.getId()}">
                     <input type="submit" name="botonEliminar" value="Eliminar">
                   </form>
                 </td>

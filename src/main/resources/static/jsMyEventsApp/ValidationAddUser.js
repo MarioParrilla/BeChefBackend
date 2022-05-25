@@ -1,40 +1,26 @@
 let btnSubmit = document.getElementById("btnSubmit");
-let txtUsername = document.getElementById("username");
 let txtPassword = document.getElementById("password");
 let txtrPassword = document.getElementById("rpassword");
 let txtEmail = document.getElementById("email");
-let txtPhonenumber = document.getElementById("phonenumber");
-let lblUsername = document.getElementById("lblUsername");
 let lblPassword = document.getElementById("lblPassword");
 let lblrPassword = document.getElementById("lblrPassword");
 let lblEmail = document.getElementById("lblEmail");
-let lblPhonenumber = document.getElementById("lblPhonenumber");
 
-lblUsername.style.color = "red";
 lblPassword.style.color = "red";
 lblrPassword.style.color = "red";
 lblEmail.style.color = "red";
-lblPhonenumber.style.color = "red";
 
 let Comprobaciones = {
-    username: false,
     password: false,
     rPassword: false,
     email: false,
-    phonenumber: false
 };
 
 btnSubmit.disabled = true;
 window.addEventListener("load", () =>{
-    checkUsername();
     checkPassword();
     checkrPassword();
     checkEmail();
-    checkPhoneNumber();
-});
-
-txtUsername.addEventListener("change", () =>{
-    checkUsername();
 });
 
 txtPassword.addEventListener("change", () =>{
@@ -49,32 +35,12 @@ txtEmail.addEventListener("change", () =>{
     checkEmail();
 });
 
-txtPhonenumber.addEventListener("change", () =>{
-    checkPhoneNumber();
-});
 
 let checkInputs = () => {
-    if (Comprobaciones.username===true && Comprobaciones.password===true && Comprobaciones.rPassword===true && Comprobaciones.email===true && Comprobaciones.phonenumber===true) btnSubmit.disabled = false;
+    if (Comprobaciones.password===true && Comprobaciones.rPassword===true && Comprobaciones.email===true) btnSubmit.disabled = false;
     else btnSubmit.disabled = true;
 };
 
-let checkUsername = () => {
-    let text = txtUsername.value;
-    if(text.length<15 && text.length>1){
-        lblUsername.innerText = "✔️";
-        Comprobaciones.username=true;
-        checkInputs();
-    }else if(text.length<2){
-        lblUsername.innerText = "❌¡Introduce un Username mayor a 1 digito!❌";
-        Comprobaciones.username=false;
-        checkInputs();
-    }
-    else{
-        lblUsername.innerText = "❌¡Introduce un Username menor a 15 digitos!❌";
-        Comprobaciones.username=false;
-        checkInputs();
-    }
-};
 
 let checkPassword = () => {
     let password = txtPassword.value;
@@ -146,24 +112,6 @@ let checkEmail = () => {
     else{
         lblEmail.innerText = "❌¡Introduce una contraseña menor a 50 digitos!❌";
         Comprobaciones.email=false;
-        checkInputs();
-    }
-};
-
-let checkPhoneNumber = () => {
-    let phonenumber = txtPhonenumber.value;
-    if(phonenumber.length<10 && /^\+?(6\d{2}|7[1-9]\d{1})\d{6}$/.test(phonenumber)){
-        lblPhonenumber.innerText = "✔️";
-        Comprobaciones.phonenumber=true;
-        checkInputs();
-    }else if (!(/^\+?(6\d{2}|7[1-9]\d{1})\d{6}$/.test(phonenumber))){
-        lblPhonenumber.innerText = "❌¡Introduce un telefono correcto!❌";
-        Comprobaciones.phonenumber=false;
-        checkInputs();
-    }
-    else{
-        lblPhonenumber.innerText = "❌¡Introduce telefono de 9 digitos!❌";
-        Comprobaciones.phonenumber=false;
         checkInputs();
     }
 };

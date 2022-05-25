@@ -107,9 +107,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <td th:text="${recipe.getCategory()}"></td>
                                 <td><img th:src="${recipe.getUrlImg()}"></td>
                                 <td>
-                                    <form method="post" action=/eliminarUsuario>
-                                        <input type="hidden" name="userid" th:value="${recipe.getId()}">
-                                        <input type="submit" name="botonEliminar" value="Eliminar">
+                                    <form method="post" action=/recipes/delRecipe>
+                                        <input type="hidden" name="id" th:value="${recipe.getId()}">
+                                        <input type="submit" value="Eliminar">
                                     </form>
                                 </td>
                             </tr>
