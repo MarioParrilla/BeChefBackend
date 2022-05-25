@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService {
             StorageOptions storageOptions = StorageOptions.newBuilder()
                     .setProjectId("bechefapp-6b2c7")
                     .setCredentials(GoogleCredentials
-                            .fromStream(new ClassPathResource(".\\static\\firebase_admin.json").getInputStream()))
+                            .fromStream(new ClassPathResource("\\src\\main\\static\\firebase_admin.json").getInputStream()))
                     .build();
             Storage storage = storageOptions.getService();
             BlobId blobId = BlobId.of("bechefapp-6b2c7.appspot.com", "profilesImg/"+objectName);
