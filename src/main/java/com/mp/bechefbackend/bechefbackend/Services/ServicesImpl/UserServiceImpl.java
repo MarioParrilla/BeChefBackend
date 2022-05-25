@@ -11,8 +11,6 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -124,13 +122,10 @@ public class UserServiceImpl implements UserService {
         try{
 
             String objectName = generateFileName(multipartFile.getOriginalFilename());
-            File file = new File("./");
-            System.out.println(file.getAbsolutePath());
-            System.out.println(file.list());
             StorageOptions storageOptions = StorageOptions.newBuilder()
                     .setProjectId("bechefapp-6b2c7")
                     .setCredentials(GoogleCredentials
-                            .fromStream(new ClassPathResource(".\\static\\firebase_admin.json").getInputStream()))
+                            .fromStream(new ClassPathResource(".\\app\\src\\main\\static\\firebase_admin.json").getInputStream()))
                     .build();
             Storage storage = storageOptions.getService();
             BlobId blobId = BlobId.of("bechefapp-6b2c7.appspot.com", "profilesImg/"+objectName);
