@@ -126,6 +126,7 @@ public class UserServiceImpl implements UserService {
             String objectName = generateFileName(multipartFile.getOriginalFilename());
             File file = new File("./");
             System.out.println(file.getAbsolutePath());
+            System.out.println(file.list());
             StorageOptions storageOptions = StorageOptions.newBuilder()
                     .setProjectId("bechefapp-6b2c7")
                     .setCredentials(GoogleCredentials
