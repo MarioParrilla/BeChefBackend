@@ -105,11 +105,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <td th:text="${recipe.getDescription()}"></td>
                                 <td th:text="${recipe.getSteps()}"></td>
                                 <td th:text="${recipe.getCategory()}"></td>
-                                <td><img th:src="${recipe.getUrlImg()}"></td>
+                                <td th:if="${recipe.getUrlImg() == ''}"><p>No Image</p></td>
+                                <td th:unless="${recipe.getUrlImg() == ''}"><img th:src="${recipe.getUrlImg()}"></td>
                                 <td>
-                                    <form method="post" action=/recipes/delRecipe>
+                                    <form th:id="${'del'+recipe.getId()}" method="post" action=/recipes/delRecipe>
                                         <input type="hidden" name="id" th:value="${recipe.getId()}">
-                                        <input type="submit" value="Eliminar">
+                                        <input type="button" value="Eliminar" th:data-d="${recipe.getId}" th:onclick="verifyDelete('del'+this.getAttribute('data-d'))">
                                     </form>
                                 </td>
                             </tr>
@@ -166,6 +167,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 <script>
+  const verifyDelete = (f) => {
+      const form = document.getElementById(f);
+      const result = confirm('¿Desea eliminar la receta?');
+      result ? form.submit() : null;
+  }
     $(function () {
         $('#tablaUsuarios').DataTable({
             "paging": true,

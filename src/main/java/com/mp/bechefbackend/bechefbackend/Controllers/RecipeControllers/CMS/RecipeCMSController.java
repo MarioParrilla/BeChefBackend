@@ -27,10 +27,10 @@ public class RecipeCMSController {
     @PostMapping("/delRecipe")
     public String delUser(Model model, @RequestParam(name = "id") Long id){
         boolean result = recipeService.remove(id);
-        if(result) model.addAttribute("msgError", new InfoMessage("➖¡El usuario se eliminó correctamente!", 0));
-        else model.addAttribute("msgError", new InfoMessage("❌¡No se pudo eliminar el usuario!", 0));
+        if(result) model.addAttribute("msgError", new InfoMessage("➖¡El receta se eliminó correctamente!", 0));
+        else model.addAttribute("msgError", new InfoMessage("❌¡No se pudo eliminar la receta!", 0));
 
-        model.addAttribute("users", recipeService.findAll());
+        model.addAttribute("recipes", recipeService.findAll());
         return "redirect:/recipes";
     }
 

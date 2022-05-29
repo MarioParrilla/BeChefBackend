@@ -85,7 +85,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <!-- form start -->
                                     <form id="formEditarUsuario" method="post" action="/users/editUser">
                                         <div class="card-body">
-                                            <div class="form-group">
+                                            <div class="form-group" th:if="${user.getUrlImg() == ''}">
+                                                <p>No Image</p>
+                                            </div>
+                                            <div class="form-group" th:unless="${user.getUrlImg() == ''}">
                                                 <img th:src="${user.getUrlImg()}">
                                             </div>
                                             <div class="form-group">

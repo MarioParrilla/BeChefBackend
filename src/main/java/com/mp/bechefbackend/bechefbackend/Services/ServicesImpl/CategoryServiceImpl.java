@@ -49,7 +49,6 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(String categoryToDelete) throws Exception {
         CategoryDTO c = new CategoryDTO();
         c.setName(categoryToDelete);
-        System.out.println(categoryRepository.findByName(c.getName()));
         if (categoryRepository.findByName(c.getName()) != null){
             categoryRepository.delete(c);
         }else throw new Exception();

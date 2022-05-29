@@ -18,7 +18,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     private UserSecurityServiceImpl userSecurityService;
 
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
+        try{
+            auth.userDetailsService(userSecurityService).passwordEncoder(passwordEncoder());
+        }catch (Exception e){
+            System.err.println("Se ha fallado en la auth: "+e.getMessage());
+        }
     }
 
     @Bean

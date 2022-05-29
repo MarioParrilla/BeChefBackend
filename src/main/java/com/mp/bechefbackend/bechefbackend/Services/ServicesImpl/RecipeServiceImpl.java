@@ -41,6 +41,10 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeRepository.findAll();
     }
 
+    public RecipeDTO findById(Long id){
+        return recipeRepository.findById(id).orElse(null);
+    }
+
     public List<RecipeDTO> findByQuery(String query) {
         return recipeRepository.findByQuery(query);
     }

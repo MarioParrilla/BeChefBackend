@@ -110,11 +110,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </form>
                 </td>
                 <td>
-                  <form id="del" method="POST" action=/categories>
+                  <form th:id="${'del'+category.getName()}" method="POST" action=/categories>
                     <input type="hidden" name="oldCategory" value="">
                     <input type="hidden" name="newCategory" th:value="${category.getName()}">
                     <input type="hidden" name="method" value="DELETE">
-                    <input type="button" name="botonEliminar" value="Eliminar" onclick="verifyDelete()">
+                    <input type="button" name="botonEliminar" value="Eliminar" th:data-d="${category.name}" th:onclick="verifyDelete('del'+this.getAttribute('data-d'))">
                   </form>
                 </td>
               </tr>
@@ -167,9 +167,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="../../dist/js/demo.js"></script>
 <script>
 
-  const verifyDelete = () => {
-    const form = document.getElementById('del');
-    const result = confirm('¿Desea eliminar la categoría?');
+  const verifyDelete = (f) => {
+    const form = document.getElementById(f);
+    const result = confirm('¿Desea eliminar la categoría, puede borrar todas sus recetas relacionadas?');
     result ? form.submit() : null;
   }
 

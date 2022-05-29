@@ -108,16 +108,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <td th:text="${user.getEmail()}"></td>
                 <td th:text="${user.getDescription()}"></td>
                 <td th:text="${user.getAdmin()}"></td>
-                <td><img th:src="${user.getUrlImg()}"></td>
+                <td th:if="${user.getUrlImg() == ''}"><p>No Image</p></td>
+                <td th:unless="${user.getUrlImg() == ''}" ><img th:src="${user.getUrlImg()}"></td>
                 <td>
                   <form method="GET" th:action="'/users/editUser/'+${user.getId()}">
                     <input type="submit" value="Editar">
                   </form>
                 </td>
                 <td>
-                  <form method="post" action=/users/delUser>
+                  <form th:id="${'del'+user.getId()}" method="post" action=/users/delUser>
                     <input type="hidden" name="id" th:value="${user.getId()}">
-                    <input type="submit" name="botonEliminar" value="Eliminar">
+                    <input type="button" value="Eliminar" th:data-d="${user.getId}" th:onclick="verifyDelete('del'+this.getAttribute('data-d'))">
                   </form>
                 </td>
               </tr>
@@ -174,6 +175,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 <script>
+  const verifyDelete = (f) => {
+    const form = document.getElementById(f);
+    const result = confirm('¿Desea eliminar la usuario?');
+    result ? form.submit() : null;
+  }
+
   $(function () {
     $('#tablaUsuarios').DataTable({
       "paging": true,
