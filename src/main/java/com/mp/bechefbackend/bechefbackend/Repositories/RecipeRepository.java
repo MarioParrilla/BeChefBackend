@@ -22,5 +22,11 @@ public interface RecipeRepository extends JpaRepository<RecipeDTO, Long> {
     @Query("SELECT r FROM RecipeDTO r where r.name like ?1%")
     List<RecipeDTO> findByQuery(String query);
 
+    @Query(value = "SELECT * FROM recipes r, (select recipe_id, avg(rate) rate  from recipes_rates group by recipe_id) rt where r.id = rt.recipe_id order by rt.rate desc LIMIT 20", nativeQuery = true)
+    List<RecipeDTO> findPopularRecipes();
+
+    @Query(value = "SELECT * FROM recipes r, (select recipe_id, avg(rate) rate  from recipes_rates group by recipe_id) rt where r.id = rt.recipe_id order by rt.rate desc LIMIT 10", nativeQuery = true)
+    List<RecipeDTO> findPopularRecipesPaged(Long lastID);
+
 
 }

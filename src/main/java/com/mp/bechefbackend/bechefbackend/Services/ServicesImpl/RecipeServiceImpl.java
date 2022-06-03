@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
@@ -52,8 +53,12 @@ public class RecipeServiceImpl implements RecipeService {
     public Double findRate(Long recipeId) {
         double recipeRate = 0.0;
         List<RateDTO> rates = rateRepository.findRate(recipeId);
+        RecipeDTO recipe = recipeRepository.findById(recipeId).orElse(null);
 
-        for ( RateDTO rate : rates) recipeRate += rate.getRate();
+        for ( RateDTO rate : rates){
+            if (recipe != null && recipe.getId_autor() == rate.getUserId() && rate.getRate() == 0) continue;
+            else recipeRate += rate.getRate();
+        }
 
         return rates.size() > 1 ? recipeRate / rates.size() : recipeRate;
     }
@@ -106,14 +111,22 @@ public class RecipeServiceImpl implements RecipeService {
     public List<RecipeDTO> findRecipesByCategory(String category) {
         List<RecipeDTO> recipes = new ArrayList<>();
 
-        recipes = recipeRepository.findRecipesByCategory(category);
+        if (category.equalsIgnoreCase("popular")){
+            recipes = recipeRepository.findPopularRecipes();
+            recipes = recipes.stream().distinct().collect(Collectors.toList());
+        }
+        else recipes = recipeRepository.findRecipesByCategory(category);
 
         return recipes;
     }
     public List<RecipeDTO> findRecipesByCategoryPaged(String category, Long lastID) {
         List<RecipeDTO> recipes = new ArrayList<>();
 
-        recipes = recipeRepository.findRecipesByCategoryPaged(category, lastID);
+        if (category.equalsIgnoreCase("popular")){
+            recipes = recipeRepository.findPopularRecipesPaged(lastID);
+            recipes = recipes.stream().distinct().collect(Collectors.toList());
+        }
+        else recipes = recipeRepository.findRecipesByCategoryPaged(category, lastID);
 
         return recipes;
     }

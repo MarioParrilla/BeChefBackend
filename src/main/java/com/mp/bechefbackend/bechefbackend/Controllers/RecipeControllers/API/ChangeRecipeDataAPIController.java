@@ -31,14 +31,16 @@ public class ChangeRecipeDataAPIController {
 
         if (file != null ) result = recipeService.changeImgProfile(file);
         else {
-            RecipeDTO url = recipeService.findById(Long.parseLong(id));
-            if (url != null) {
-                recipe.setUrlImg(url.getUrlImg());
-            } else {
-                recipe.setUrlImg("");
+            if(id != null){
+                RecipeDTO url = recipeService.findById(Long.parseLong(id));
+                if (url != null) {
+                    recipe.setUrlImg(url.getUrlImg());
+                } else {
+                    recipe.setUrlImg("");
+                }
             }
         }
-        if(id != null)recipe.setId(Long.parseLong(id));
+        if(id != null) recipe.setId(Long.parseLong(id));
         recipe.setId_autor(idAutor);
         recipe.setName(name);
         recipe.setDescription(description);
