@@ -13,4 +13,7 @@ public interface RateRepository extends JpaRepository<RateDTO, RateId> {
 
     @Query("select r from RateDTO r where r.recipeId = ?1")
     List<RateDTO> findRate(Long recipeId);
+
+    @Query("select r.rate from RateDTO r where r.recipeId = ?1 and r.userId = ?2")
+    Double findRateOfUser(Long recipeId, Long userId);
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -59,8 +60,16 @@ public class RecipeServiceImpl implements RecipeService {
             if (recipe != null && recipe.getId_autor() == rate.getUserId() && rate.getRate() == 0) continue;
             else recipeRate += rate.getRate();
         }
-
+        DecimalFormat df = new DecimalFormat("###.##");
         return rates.size() > 1 ? recipeRate / rates.size() : recipeRate;
+    }
+
+    public Double findRateOfUser(Long recipeId, Long userId) {
+        Double recipeRate = 0.0;
+        recipeRate = rateRepository.findRateOfUser(recipeId, userId);
+
+        DecimalFormat df = new DecimalFormat("###.##");
+        return recipeRate != null ? recipeRate : 0.0;
     }
 
     public boolean setRate(RateInfo rate) {
