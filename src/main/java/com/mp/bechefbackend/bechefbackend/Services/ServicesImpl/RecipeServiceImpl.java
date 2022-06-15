@@ -100,6 +100,20 @@ public class RecipeServiceImpl implements RecipeService {
         return removeOK;
     }
 
+    public boolean deleteRecipesOfCategory(String category){
+        boolean removeOK = false;
+
+        try{
+            ArrayList<RecipeDTO> list = (ArrayList<RecipeDTO>) recipeRepository.findRecipeByCategory(category);
+            recipeRepository.deleteAll(list);
+            removeOK = true;
+        }catch (Exception e){
+            removeOK = false;
+        }
+
+        return removeOK;
+    }
+
     @Override
     public List<RecipeDTO> findRecipesByToken(String token) {
         List<RecipeDTO> recipes = new ArrayList<>();

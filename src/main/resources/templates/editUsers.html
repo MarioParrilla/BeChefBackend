@@ -116,11 +116,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                             <input type="hidden" id="btnClearDesc" value="false" name="clearDesc">
                                             <input type="hidden" id="btnClearImg" value="false" name="clearImg">
                                         </div>
+
                                         <div class="card-footer">
                                             <button type="button" class="btn btn-secondary" onclick="clearD()">Eliminar Descripcion</button>
+                                            <span id="spanClearDesc">❌ No se va a eliminar</span>
                                         </div>
                                         <div class="card-footer">
                                             <button type="button" class="btn btn-secondary" onclick="clearI()">Eliminar Imagen</button>
+                                            <span id="spanClearImg">❌ No se va a eliminar</span>
+                                        </div>
+                                        <div class="card-footer">
+                                            <p style="font-size: 14px;">*Para aplicar la eliminacion de la descripcion y imagen hay que darle al boton de editar usuario</p>
                                         </div>
                                         <!-- /.card-body -->
                                         <div class="card-footer">
@@ -154,14 +160,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED SCRIPTS -->
 <!-- Our Scripts MY EVENTS APP-->
 <script>
+    const clearDescription = document.getElementById("btnClearDesc");
+    const clearImg = document.getElementById("btnClearImg");
+    clearDescription.value = "false";
+    clearImg.value = "false";
+
     const clearD = () => {
-        const clearDescription = document.getElementById("btnClearDesc");
-        clearDescription.value = "true";
+
+        const textCD = document.getElementById("spanClearDesc");
+
+        if(clearDescription.value === "true"){
+            clearDescription.value = "false";
+            textCD.innerText = "❌ No se va a eliminar";
+        }else{
+            clearDescription.value = "true";
+            textCD.innerText = "✅ Se va a eliminar";
+        }
     }
 
     const clearI = () => {
-        const clearImg = document.getElementById("btnClearImg");
-        clearImg.value = "true";
+        const textCI = document.getElementById("spanClearImg");
+
+        if(clearImg.value === "true"){
+            clearImg.value = "false";
+            textCI.innerText = "❌ No se va a eliminar";
+        }else{
+            clearImg.value = "true";
+            textCI.innerText = "✅ Se va a eliminar";
+        }
+
     }
 </script>
 <script src="../../jsMyEventsApp/ValidationEditUser.js"></script>

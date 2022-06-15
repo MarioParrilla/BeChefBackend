@@ -1,7 +1,6 @@
 package com.mp.bechefbackend.bechefbackend.Controllers.UserControllers.API;
 
 import com.mp.bechefbackend.bechefbackend.Exceptions.ApiErrorMessage;
-import com.mp.bechefbackend.bechefbackend.Models.RecipeDTO;
 import com.mp.bechefbackend.bechefbackend.Models.UserDTO;
 import com.mp.bechefbackend.bechefbackend.Services.ServicesImpl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import java.util.List;
 public class UserSearchAPIController {
 
     @Autowired
-    UserServiceImpl userService;
+            UserServiceImpl userService;
 
     @GetMapping( value = "/users",produces = "application/json")
     public ResponseEntity<List<UserDTO>> findUsers(){

@@ -28,5 +28,6 @@ public interface RecipeRepository extends JpaRepository<RecipeDTO, Long> {
     @Query(value = "SELECT * FROM recipes r, (select recipe_id, avg(rate) rate  from recipes_rates group by recipe_id) rt where r.id = rt.recipe_id order by rt.rate desc LIMIT 10", nativeQuery = true)
     List<RecipeDTO> findPopularRecipesPaged(Long lastID);
 
-
+    @Query("SELECT r FROM RecipeDTO r where r.category = ?1")
+    List<RecipeDTO> findRecipeByCategory(String category);
 }

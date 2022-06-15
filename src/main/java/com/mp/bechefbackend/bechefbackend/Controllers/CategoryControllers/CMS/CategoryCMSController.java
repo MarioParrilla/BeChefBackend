@@ -2,6 +2,7 @@ package com.mp.bechefbackend.bechefbackend.Controllers.CategoryControllers.CMS;
 
 import com.mp.bechefbackend.bechefbackend.Models.InfoMessage;
 import com.mp.bechefbackend.bechefbackend.Services.ServicesImpl.CategoryServiceImpl;
+import com.mp.bechefbackend.bechefbackend.Services.ServicesImpl.RecipeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,9 @@ public class CategoryCMSController {
 
     @Autowired
     CategoryServiceImpl categoryService;
+
+    @Autowired
+    RecipeServiceImpl recipeService;
 
     @GetMapping()
     public String findCategories(Model model){
@@ -42,6 +46,7 @@ public class CategoryCMSController {
         else if (method.equals("DELETE")){
             try {
                 categoryService.delete(newCategory);
+                recipeService.deleteRecipesOfCategory(newCategory);
                 model.addAttribute("msgError", new InfoMessage("➕¡La categoria se eliminó correctamente!", 0));
             } catch (Exception e) {
                 model.addAttribute("msgError", new InfoMessage("❌¡No se pudo eliminar correctamente!", 0));

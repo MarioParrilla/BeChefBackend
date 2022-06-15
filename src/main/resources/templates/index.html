@@ -77,41 +77,47 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <section class="content">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-6">
-                                <!-- small box -->
-                                <div class="small-box bg-warning">
-                                    <div class="inner">
-                                        <h3 th:text="${usersAmount}"></h3>
+                            <a href="/users" class="small-box-footer">
+                                <div class="col-lg-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-warning">
+                                        <div class="inner">
+                                            <h3 th:text="${usersAmount}"></h3>
 
-                                        <p>Usuarios Registrados</p>
+                                            <p>Usuarios Registrados</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-user-plus"></i>
+                                        </div>
+                                        <a href="/users" class="small-box-footer">
+                                            Ir a Usuarios <i class="fas fa-arrow-circle-right"></i>
+                                        </a>
                                     </div>
-                                    <div class="icon">
-                                        <i class="fas fa-user-plus"></i>
-                                    </div>
-                                    <a href="/users" class="small-box-footer">
-                                        Ir a Usuarios <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
                                 </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- small box -->
-                                <div class="small-box bg-info">
-                                    <div class="inner">
-                                        <h3 th:text="${recipesAmount}"></h3>
-
-                                        <p>Recetas Creadas</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="fas fa-solid fa-kitchen-set"></i>
-                                    </div>
-                                    <a href="/recipes" class="small-box-footer">
-                                        Ir a Recetas <i class="fas fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
-                            </div>
+                            </a>
 
                             <div class="col-lg-6">
                                 <!-- small box -->
+                                <a href="/recipes" class="small-box-footer">
+                                    <div class="small-box bg-info">
+                                        <div class="inner">
+                                            <h3 th:text="${recipesAmount}"></h3>
+
+                                            <p>Recetas Creadas</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="fas fa-solid fa-kitchen-set"></i>
+                                        </div>
+                                        <a href="/recipes" class="small-box-footer">
+                                            Ir a Recetas <i class="fas fa-arrow-circle-right"></i>
+                                        </a>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <!-- small box -->
+                            <a href="/categories" class="small-box-footer">
                                 <div class="small-box bg-success">
                                     <div class="inner">
                                         <h3 th:text="${categoriesAmount}"></h3>
@@ -122,14 +128,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <i class="fas fa-solid fa-chart-simple"></i>
                                     </div>
                                     <a href="/categories" class="small-box-footer">
-                                        Ir a Categorias <i class="fas fa-regular fa-cabinet-filing"></i>
+                                        Ir a Categorias <i class="fas fa-arrow-circle-right"></i>
                                     </a>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                         <!-- ./col -->
                     </div>
-            </div>
         </div>
         </section>
 

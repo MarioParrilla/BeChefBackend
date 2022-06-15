@@ -42,9 +42,9 @@ public class RecipeSearchAPIController {
     }
 
     @GetMapping( value = "/recipes/rateOf/{data}",produces = "application/json")
-    public ResponseEntity<Double> findRateFromRecipe(@PathVariable() String data){
+    public Double findRateFromRecipe(@PathVariable() String data){
         String[] d = data.split("-");
-        return new ResponseEntity(recipeService.findRateOfUser(Long.parseLong(d[0]), Long.parseLong(d[1])), HttpStatus.OK);
+        return recipeService.findRateOfUser(Long.parseLong(d[0]), Long.parseLong(d[1]));
     }
 
     @PostMapping( value = "/recipes/rate",produces = "application/json")

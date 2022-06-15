@@ -18,20 +18,23 @@ public class RecipeCMSController {
     RecipeServiceImpl recipeService;
 
     @GetMapping()
-    public String findRecipes(Model model){
-        model.addAttribute("msgError", new InfoMessage("", 1));
+    public String findRecipes(Model model, @RequestParam(required = false) String done){
+        if (done == null) model.addAttribute("msgError", new InfoMessage("", 1));
+        else if (done.equals("1")) model.addAttribute("msgError", new InfoMessage("➖¡La receta se eliminó correctamente!", 0));
+        else if (done.equals("-1")) model.addAttribute("msgError", new InfoMessage("❌¡No se pudo eliminar la receta!", 0));
         model.addAttribute("recipes", recipeService.findAll());
         return "recipes";
     }
 
     @PostMapping("/delRecipe")
     public String delUser(Model model, @RequestParam(name = "id") Long id){
+        String done = "-1";
         boolean result = recipeService.remove(id);
-        if(result) model.addAttribute("msgError", new InfoMessage("➖¡El receta se eliminó correctamente!", 0));
-        else model.addAttribute("msgError", new InfoMessage("❌¡No se pudo eliminar la receta!", 0));
+        if(result) done = "1";
+        else done = "-1";
 
         model.addAttribute("recipes", recipeService.findAll());
-        return "redirect:/recipes";
+        return "redirect:/recipes?done="+done;
     }
 
 }
