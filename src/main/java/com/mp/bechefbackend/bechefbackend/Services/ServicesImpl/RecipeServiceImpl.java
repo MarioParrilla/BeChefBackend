@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-    private final String URLIMG = "https://firebasestorage.googleapis.com/v0/b/bechefapp-6b2c7.appspot.com/o/profilesImg%2F";
-    private final String SUFIXURL = "?alt=media&token=4db09e73-1da8-4bd7-bd02-746e4c3a214e";
+    private final String URLIMG = "";
+    private final String SUFIXURL = "";
 
     @Autowired
     private RecipeRepository recipeRepository;
